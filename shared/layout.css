@@ -1,0 +1,282 @@
+/* Unified Math Workbook Styles */
+
+/* Font Imports */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@300;400;500;700;900&display=swap');
+
+/* Default Style: Analog */
+:root {
+  --primary-color: #1A202C; /* Ink Black */
+  --secondary-color: #4A5568;
+  --bg-color: #FFFCF5; /* Parchment */
+  --highlight-bg: #FEEBC8;
+  --text-dark: #1A202C;
+  --text-muted: #718096;
+  --border-color: #A0AEC0;
+  --divider-color: #E2E8F0;
+  --line-color: #EDF2F7;
+  --white: #FFFFFF;
+  --workspace-bg: #FFFCF5;
+  --font-family: 'Noto Serif KR', serif;
+}
+
+/* Digital Style Overrides */
+[data-style="digital"] {
+  --primary-color: #00A896; /* Teal */
+  --secondary-color: #008F81;
+  --bg-color: #FFFFFF;
+  --highlight-bg: #F5FFFE;
+  --text-dark: #1F2937;
+  --text-muted: #6B7280;
+  --border-color: #E5E7EB;
+  --divider-color: #E5E7EB;
+  --line-color: transparent;
+  --white: #FFFFFF;
+  --workspace-bg: #FAFAFA;
+  --font-family: 'Noto Sans KR', sans-serif;
+}
+
+/* Dark Mode Overrides (Scoped by Style) */
+[data-theme='dark'] {
+  --text-dark: #F3F4F6;
+  --text-muted: #9CA3AF;
+  --white: #111827;
+  --bg-color: #1A202C;
+  --workspace-bg: #1F2937;
+  --primary-color: #2DD4BF; /* Digital Teal in Dark Mode */
+  --border-color: #374151;
+  --line-color: #2D3748;
+}
+
+[data-theme='dark'][data-style="analog"] {
+  --primary-color: #CBD5E0;
+  --bg-color: #1A202C;
+  --workspace-bg: #1A202C;
+  --highlight-bg: #2C3E50;
+}
+
+/* Page Setup & Common Layout */
+@page {
+  size: A4;
+  margin: 15mm;
+}
+
+body {
+  padding: 15mm;
+  font-family: var(--font-family);
+  line-height: 1.7;
+  color: var(--text-dark);
+  margin: 0;
+  background-color: var(--bg-color);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+  transition: all 0.3s ease;
+}
+
+/* Common UI Switcher Container */
+.switcher-panel {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.style-switcher {
+  display: flex;
+  background: var(--divider-color);
+  padding: 4px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.switch-btn {
+  padding: 4px 12px;
+  border: none;
+  background: none;
+  font-family: var(--font-family);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s;
+  color: var(--text-muted);
+}
+
+.switch-btn.active {
+  background: var(--primary-color);
+  color: var(--white);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.theme-toggle-btn {
+  background: var(--primary-color);
+  color: var(--white);
+  border: 1px solid var(--border-color);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-family: var(--font-family);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+/* Header Styles */
+.workbook-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 3px double var(--primary-color);
+  padding-bottom: 12px;
+  margin-bottom: 35px;
+}
+
+[data-style="digital"] .workbook-header {
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.title-badge {
+  padding: 4px 15px;
+  font-weight: 900;
+  font-size: 1.5rem;
+  border-radius: 4px;
+}
+
+[data-style="analog"] .title-badge {
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+  background: transparent;
+}
+
+[data-style="digital"] .title-badge {
+  background-color: var(--primary-color);
+  color: var(--white);
+  border: none;
+}
+
+/* Grid & Spacing */
+.problem-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 40px;
+  position: relative;
+}
+
+.problem-grid::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background-color: var(--border-color);
+}
+
+/* Workspace Styles */
+.workspace {
+  margin-top: 15px;
+  min-height: 220px;
+  height: auto;
+  background-color: var(--workspace-bg);
+  border: 1px dashed var(--border-color);
+  border-radius: 4px;
+  position: relative;
+  overflow: auto;
+}
+
+[data-style="analog"] .workspace {
+  background-image: linear-gradient(var(--line-color) 1px, transparent 1px);
+  background-size: 100% 28px;
+  border: 1.5px solid var(--border-color);
+}
+
+[data-style="analog"] .workspace::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 45px;
+  bottom: 0;
+  width: 1px;
+  background-color: rgba(255, 0, 0, 0.15);
+}
+
+/* Problem Styles */
+.problem-number {
+  float: left;
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: var(--primary-color);
+  margin-right: 12px;
+}
+
+.sol-toggle-btn {
+  display: inline-flex;
+  padding: 4px 8px;
+  margin-left: 8px;
+  border: 1.5px solid var(--primary-color);
+  color: var(--primary-color);
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  background: none;
+  transition: all 0.2s;
+  border-radius: 4px;
+}
+
+[data-style="analog"] .sol-toggle-btn {
+  border-radius: 0; /* Stamp style */
+}
+
+.sol-toggle-btn:hover {
+  background: var(--primary-color);
+  color: var(--white);
+}
+
+.solution-content {
+  padding: 20px;
+  background-color: var(--highlight-bg);
+  border-left: 4px solid var(--primary-color);
+  animation: fadeIn 0.3s ease-out;
+}
+
+[data-style="analog"] .solution-content {
+  padding-left: 60px; /* Offset for margin line */
+  background: transparent;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Chapter Headers */
+.chapter-header {
+  margin-top: 50px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--primary-color);
+  margin-bottom: 30px;
+}
+
+[data-style="digital"] .chapter-header {
+  border-left: 6px solid var(--primary-color);
+  border-bottom: none;
+  padding-left: 15px;
+}
+
+.chapter-badge {
+  display: inline-block;
+  padding: 4px 15px;
+  font-weight: 800;
+  border-radius: 20px;
+  background-color: var(--primary-color);
+  color: var(--white);
+}
+
+[data-style="analog"] .chapter-badge {
+  border-radius: 0;
+}
+
+@media print {
+  .switcher-panel { display: none !important; }
+  body { padding: 0 !important; background: white !important; color: black !important; }
+}
