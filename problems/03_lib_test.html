@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>math_workbook_rules – 수학 문제집</title>
+<title>수학 도구 테스트 (KaTeX &amp; JSXGraph) – 수학 문제집</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -24,15 +24,15 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-html/tabby.min.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <!-- KaTeX -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
@@ -119,39 +119,58 @@ ul.task-list li input[type="checkbox"] {
 </script>
 
 
-<link rel="stylesheet" href="shared/layout.css">
+<link rel="stylesheet" href="../shared/layout.css">
 </head>
 
 <body>
 
 
+<header id="title-block-header">
+<h1 class="title">수학 도구 테스트 (KaTeX &amp; JSXGraph)</h1>
+
+</header>
 
 
+<div class="switcher-panel">
 
-<h1 id="수학-문제집-프로젝트-규칙-math-workbook-project-rules">수학 문제집 프로젝트 규칙 (Math Workbook Project Rules)</h1>
-<h2 id="프로젝트-개요-project-overview" class="anchored">프로젝트 개요 (Project Overview)</h2>
-<ul>
-<li>Astro로 만든 레이아웃 + Quarto로 문제 조판하는 프로젝트</li>
-<li>대상: 중고등학교 수학 문제집</li>
-</ul>
-<h2 id="기술-스택-tech-stack" class="anchored">기술 스택 (Tech Stack)</h2>
-<ul>
-<li>레이아웃: Astro (HTML/CSS/JS) → shared/layout.css, shared/scripts.js 추출</li>
-<li>문서: Quarto (.qmd) → _quarto.yml에서 shared/ 파일 연결</li>
-<li>수식: LaTeX 문법 (<span class="math inline"><em>x</em><sup>2</sup> + 1 = 0</span>)</li>
-</ul>
-<h2 id="폴더-구조-folder-structure" class="anchored">폴더 구조 (Folder Structure)</h2>
-<ul>
-<li><strong>astro-layout/</strong> : Astro 소스</li>
-<li><strong>shared/</strong> : CSS·JS 공유 파일 (건드리지 말것)</li>
-<li><strong>quarto-docs/</strong> : 마크다운 문제 파일</li>
-</ul>
-<h2 id="규칙-rules" class="anchored">규칙 (Rules)</h2>
-<ul>
-<li>문제는 반드시 <strong>quarto-docs/problems/</strong> 폴더에 작성</li>
-<li><strong>node_modules/</strong> 폴더는 절대 수정 금지</li>
-<li>CSS 수정은 <strong>shared/layout.css</strong>만 수정</li>
-</ul>
+</div>
+<h2 id="katex-수식-렌더링-테스트" class="anchored">1. KaTeX (수식 렌더링) 테스트</h2>
+<p>이 수식이 예쁘게 보인다면 KaTeX가 잘 설치된 것입니다:</p>
+<p><span class="math display">$$x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$</span></p>
+<p>평문 속에 있는 수식(<span class="math inline"><em>E</em> = <em>m</em><em>c</em><sup>2</sup></span>)도 잘 보이는지 확인하세요.</p>
+<hr>
+<h2 id="jsxgraph-기하-도구-테스트" class="anchored">2. JSXGraph (기하 도구) 테스트</h2>
+<p>아래 영역에 인터랙티브한 그래프가 나타나야 합니다. (파란 점을 드래그해 보세요!)</p>
+<div id="jxgbox" class="jxgbox" style="width:500px; height:500px; margin: 20px auto; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+
+</div>
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function() {
+    const board = JXG.JSXGraph.initBoard('jxgbox', {
+        boundingbox: [-5, 5, 5, -5],
+        axis: true,
+        showCopyright: false
+    });
+    
+    // 점 A와 B 생성
+    const p1 = board.create('point', [-1, 1], {name: 'A', size: 4});
+    const p2 = board.create('point', [2, -1], {name: 'B', size: 4});
+    
+    // 두 점을 잇는 직선 생성
+    const line = board.create('line', [p1, p2], {
+        strokeColor: '#0072b2',
+        strokeWidth: 2
+    });
+    
+    // 원 생성 (p1 중심, 반지름 2)
+    const circle = board.create('circle', [p1, 2], {
+        strokeColor: '#d55e00',
+        dash: 2
+    });
+});
+</script>
+<hr>
+<p><a href="../index.html">홈으로 돌아가기</a></p>
 
 
 <script id="quarto-html-after-body" type="application/javascript">
