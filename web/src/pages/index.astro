@@ -194,7 +194,7 @@ const studySections = content.split('## 📘 [마스터 페이지]').slice(1).ma
 			// --- Step 4: Assemble with flex instruction row ---
 			const idStr = el.getAttribute('data-id');
 			const idNum = parseInt(idStr || '0');
-			const studyIcon = idNum === 1 ? `<a href="/wiki/study/1" class="btn-study-link" title="개념 학습지 보기">💡</a>` : '';
+			const studyIcon = idNum === 1 ? `<a href="/math_m2/study/1" class="btn-study-link" title="개념 학습지 보기">💡</a>` : '';
 
 			el.innerHTML =
 				`<div class="prob-instruction"><span class="instr-text">${instrHTML}</span><span class="prob-score-inline">[4점]</span>${studyIcon}</div>` +
