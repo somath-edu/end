@@ -42,10 +42,27 @@ function renderDisplayMath(text: string): string {
 }
 
 function processContent(raw: string) {
-	// 1. Custom Blocks (:::type ... :::) - More robust regex
-	let cleaned = raw.replace(/:::(info|danger|success)\s*?\n([\\s\\S]*?)\n\s*?:::/g, (_, type, content) => {
-		return `<div class="card ${type}-card">${content.trim()}</div>`;
-	});
+	// 1. Custom Blocks (:::type ... :::) - Robust Split-based Logic (No Backslashes)
+	const segments = raw.split(':::');
+	let cleaned = segments[0];
+	
+	for (let i = 1; i < segments.length; i += 2) {
+		const block = segments[i];
+		const nextText = segments[i+1] || '';
+		
+		if (block.startsWith('info') || block.startsWith('danger') || block.startsWith('success')) {
+			const firstNewline = block.indexOf('\n');
+			if (firstNewline !== -1) {
+				const type = block.substring(0, firstNewline).trim();
+				const content = block.substring(firstNewline).trim();
+				cleaned += `<div class="card ${type}-card">${content}</div>` + nextText;
+			} else {
+				cleaned += block + nextText;
+			}
+		} else {
+			cleaned += block + nextText;
+		}
+	}
 
 	// 2. Basic Markdown-like cleaning
 	cleaned = cleaned
