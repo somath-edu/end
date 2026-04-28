@@ -43,7 +43,7 @@ function renderDisplayMath(text: string): string {
 
 function processContent(raw: string) {
 	// 1. Custom Blocks (:::type ... :::) - More robust regex
-	let cleaned = raw.replace(/:::(info|danger|success)\s*?\n([\s\S]*?)\n\s*?:::/g, (_, type, content) => {
+	let cleaned = raw.replace(/:::(info|danger|success)\s*?\n([\\s\\S]*?)\n\s*?:::/g, (_, type, content) => {
 		return `<div class="card ${type}-card">${content.trim()}</div>`;
 	});
 
