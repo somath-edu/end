@@ -42,16 +42,20 @@ function renderDisplayMath(text: string): string {
 }
 
 function processContent(raw: string) {
-	// 1. Basic Markdown-like cleaning
-	let cleaned = raw
+	// 1. Custom Blocks (:::type ... :::)
+	let cleaned = raw.replace(/:::(info|danger|success)\n([\s\S]*?)\n:::/g, (_, type, content) => {
+		return `<div class="card ${type}-card">${content}</div>`;
+	});
+
+	// 2. Basic Markdown-like cleaning
+	cleaned = cleaned
 		.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Bold
 		.replace(/^> (.*)$/gm, '<blockquote>$1</blockquote>'); // Blockquote
 
-	// 2. Custom Components
-	// Star Points
+	// 3. Custom Components
 	cleaned = cleaned.replace(/★ (.*)/g, '<div class="star-item"><span class="star-icon">★</span> $1</div>');
 	
-	// 3. Math Rendering
+	// 4. Math Rendering
 	const choiceMatch = cleaned.match(/\n(①)/);
 	const displayMathMatch = cleaned.match(/\n\$\$/);
 	const blankLineMatch = cleaned.match(/\n\n/);
@@ -135,7 +139,7 @@ const jsonLd = {
 				<div class="study-content">
 					<div class="concept-section">
 						<div class="section-badge"><span class="badge-icon">⭐</span> 핵심 개념 정리</div>
-						<div class="concept-box prob-body" set:html={section.concept}></div>
+						<div class="concept-box-container prob-body" set:html={section.concept}></div>
 					</div>
 
 					{section.rawPractice && (
@@ -165,6 +169,8 @@ const jsonLd = {
 		--paper: #fff;
 		--point-blue: #2563eb;
 		--bg-blue: #f8fafc;
+		--point-red: #ef4444;
+		--point-green: #10b981;
 	}
 
 	.paper {
@@ -219,19 +225,34 @@ const jsonLd = {
 		border-radius: 20px 20px 20px 0;
 		font-size: 1rem;
 		font-weight: bold;
-		margin-bottom: 1rem;
+		margin-bottom: 1.5rem;
 		box-shadow: 3px 3px 0px var(--point-blue);
 	}
 	.badge-icon { margin-right: 6px; }
 
-	.concept-box {
-		background: var(--bg-blue);
-		border: 1.5px solid #e2e8f0;
+	/* Card System */
+	:global(.card) {
 		border-radius: 12px;
-		padding: 2rem;
+		padding: 1.5rem 2rem;
+		margin-bottom: 1.5rem;
 		line-height: 1.8;
-		font-size: 1.15rem;
+		font-size: 1.1rem;
 		position: relative;
+		border: 1.5px solid #e2e8f0;
+	}
+	:global(.info-card) {
+		background: var(--bg-blue);
+		border-left: 5px solid var(--point-blue);
+	}
+	:global(.danger-card) {
+		background: #fff5f5;
+		border-left: 5px solid var(--point-red);
+		border-color: #fee2e2;
+	}
+	:global(.success-card) {
+		background: #f0fdf4;
+		border-left: 5px solid var(--point-green);
+		border-color: #dcfce7;
 	}
 
 	/* Star Items */
@@ -249,64 +270,31 @@ const jsonLd = {
 
 	/* Blockquote (Summary Box) */
 	:global(blockquote) {
-		margin: 1.5rem 0;
-		padding: 1.2rem 1.5rem;
+		margin: 0.5rem 0 1.5rem 0;
+		padding: 1rem 1.2rem;
 		background: #fff;
 		border: 2px dashed var(--point-blue);
 		border-radius: 8px;
 		font-weight: 700;
 		color: var(--point-blue);
+		font-size: 1.2rem;
 	}
 
 	:global(.prob-instruction) {
 		display: block;
-		margin-bottom: 0.5rem;
-	}
-	:global(.prob-content) {
-		margin-top: 0.5rem;
 	}
 
 	/* Math Styles */
 	:global(.math-display) {
-		margin: 1rem 0 !important;
-		background: rgba(255,255,255,0.5);
-		padding: 1rem;
+		margin: 0.8rem 0 !important;
+		background: rgba(255,255,255,0.7);
+		padding: 0.8rem;
 		border-radius: 8px;
+		border: 1px solid rgba(0,0,0,0.05);
 	}
 	:global(.math-inline) {
 		color: #1e40af;
 		font-weight: 600;
-	}
-
-	.practice-box {
-		padding: 0.5rem;
-		font-size: 1.15rem;
-		line-height: 1.8;
-	}
-
-	.solving-space {
-		margin-top: 1rem;
-		border: 1px solid #e2e8f0;
-		border-radius: 12px;
-		padding: 1.5rem;
-		flex: 1;
-		min-height: 350px;
-		display: flex;
-		flex-direction: column;
-		background: #fff;
-	}
-	.space-label {
-		font-size: 0.8rem;
-		font-weight: 800;
-		color: #94a3b8;
-		margin-bottom: 0.8rem;
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
-	}
-	.dotted-area {
-		flex: 1;
-		background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
-		background-size: 30px 30px;
 	}
 
 	.content-border {
@@ -338,5 +326,6 @@ const jsonLd = {
 		font-weight: 700;
 	}
 </style>
+
 
 
