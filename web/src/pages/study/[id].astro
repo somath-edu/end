@@ -249,16 +249,17 @@ const jsonLd = {
 
 	/* Card System */
 	:global(.card) {
-		border-radius: 16px;
-		padding: 2rem 2.5rem;
-		margin-bottom: 2rem;
-		line-height: 1.7;
+		border-radius: 12px;
+		padding: 1.8rem 2.2rem;
+		margin-bottom: 1.8rem;
+		line-height: 1.6;
 		font-size: 1.1rem;
 		position: relative;
 		border: 1px solid rgba(0,0,0,0.05);
 		box-shadow: 0 4px 15px rgba(0,0,0,0.02);
 		word-break: keep-all;
-		letter-spacing: -0.01em;
+		letter-spacing: -0.02em;
+		text-align: left;
 	}
 	:global(.info-card) {
 		background: linear-gradient(135deg, #f0f7ff 0%, #e0f2fe 100%);
@@ -276,8 +277,8 @@ const jsonLd = {
 	/* Card Titles */
 	:global(.card strong) {
 		display: block;
-		font-size: 1.25rem;
-		margin-bottom: 1.2rem;
+		font-size: 1.2rem;
+		margin-bottom: 1rem;
 		color: #0f172a;
 		font-weight: 800;
 	}
@@ -292,23 +293,22 @@ const jsonLd = {
 	}
 	:global(.star-icon) {
 		color: #f59e0b;
-		font-size: 1.25rem;
-		margin-top: 0.1rem;
+		font-size: 1.2rem;
+		margin-top: 0.15rem;
 		flex-shrink: 0;
 	}
 
 	/* Blockquote (Summary Box) */
 	:global(blockquote) {
-		margin: 1rem 0 2rem 0;
-		padding: 1.2rem 1.5rem;
+		margin: 0.5rem 0 1.8rem 0;
+		padding: 1rem 1.5rem;
 		background: rgba(255, 255, 255, 0.9);
 		border: 2.5px dashed var(--point-blue);
 		border-radius: 12px;
 		font-weight: 800;
 		color: var(--point-blue);
-		font-size: 1.25rem;
+		font-size: 1.2rem;
 		text-align: center;
-		box-shadow: 0 4px 10px rgba(0,0,0,0.03);
 	}
 
 	:global(.prob-instruction) {
