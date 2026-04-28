@@ -43,7 +43,7 @@ function renderDisplayMath(text: string): string {
 
 function processContent(raw: string) {
 	// 1. Custom Blocks (:::type ... :::)
-	let cleaned = raw.replace(/:::(info|danger|success)\n([\s\S]*?)\n:::/g, (_, type, content) => {
+	let cleaned = raw.replace(/:::(info|danger|success)\n([\\s\\S]*?)\n:::/g, (_, type, content) => {
 		return `<div class="card ${type}-card">${content}</div>`;
 	});
 
