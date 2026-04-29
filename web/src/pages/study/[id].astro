@@ -48,7 +48,7 @@ function processContent(raw: string) {
 		const firstNewline = block.indexOf('\n');
 		if (firstNewline !== -1) {
 			const type = block.substring(0, firstNewline).trim();
-			const content = block.substring(firstNewline).trim();
+			const content = block.substring(firstNewline).trim().replace(/\n/g, ' '); // 카드 내부 줄바꿈은 공백으로 치환하여 문장 유지
 			cleaned += `<div class="card ${type}-card">${content}</div>` + nextText;
 		} else {
 			cleaned += block + nextText;
@@ -56,7 +56,7 @@ function processContent(raw: string) {
 	}
 
 	cleaned = cleaned
-		.replace(/### (.*)/g, '<div class="section-badge-wrapper"><div class="section-badge">$1</div></div>') // 제목 배지화
+		.replace(/### (.*)/g, '<div class="section-badge-wrapper"><div class="section-badge">$1</div></div>')
 		.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
 		.replace(/^> (.*)$/gm, '<blockquote>$1</blockquote>');
 
@@ -65,10 +65,10 @@ function processContent(raw: string) {
 	const instrHTML = renderInlineMath(cleaned);
 	let restHTML = renderDisplayMath(instrHTML);
 	
-	// 줄바꿈 로직 최적화: 카드 내부 등에서는 자연스러운 텍스트 흐름 유지
-	const parts = restHTML.split(/(<div class="math-display">.*?<\/div>|<div class="card .*?">.*?<\/div>)/gs);
+	// 카드가 아닌 일반 텍스트 영역의 줄바꿈만 <br/>로 변환
+	const parts = restHTML.split(/(<div class="card .*?">.*?<\/div>|<div class="math-display">.*?<\/div>)/gs);
 	restHTML = parts.map(p => {
-		if (p.startsWith('<div class="math-display">') || p.startsWith('<div class="card ')) return p;
+		if (p.startsWith('<div class="card') || p.startsWith('<div class="math-display">')) return p;
 		return p.trim().replace(/\n/g, '<br/>');
 	}).join('');
 
