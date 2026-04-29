@@ -48,7 +48,7 @@ function processContent(raw: string) {
 		const firstNewline = block.indexOf('\n');
 		if (firstNewline !== -1) {
 			const type = block.substring(0, firstNewline).trim();
-			const content = block.substring(firstNewline).trim().replace(/\n/g, ' '); // 카드 내부 줄바꿈은 공백으로 치환하여 문장 유지
+			const content = block.substring(firstNewline).trim(); 
 			cleaned += `<div class="card ${type}-card">${content}</div>` + nextText;
 		} else {
 			cleaned += block + nextText;
