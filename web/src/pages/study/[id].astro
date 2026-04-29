@@ -56,10 +56,11 @@ function processContent(raw: string) {
 	}
 
 	cleaned = cleaned
+		.replace(/### (.*)/g, '<div class="section-badge-wrapper"><div class="section-badge">$1</div></div>') // 제목 배지화
 		.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
 		.replace(/^> (.*)$/gm, '<blockquote>$1</blockquote>');
 
-	cleaned = cleaned.replace(/★ (.*)/g, '<div class="star-item"><span class="star-icon">★</span> $1</div>');
+	cleaned = cleaned.replace(/★ (.*)/g, '<div class="star-item"><span class="star-icon">★</span> <span class="star-text">$1</span></div>');
 	
 	const instrHTML = renderInlineMath(cleaned);
 	let restHTML = renderDisplayMath(instrHTML);
