@@ -301,10 +301,33 @@ const jsonLd = {
 		text-align: center;
 	}
 
+	:global(.card p) {
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+
+	:global(.star-item) {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		margin-bottom: 0.2rem;
+		font-weight: 600;
+		line-height: 1.4;
+	}
+	:global(.star-icon) {
+		color: #f59e0b;
+		font-size: 1rem;
+		flex-shrink: 0;
+	}
+	:global(.star-text) {
+		flex: 1;
+		word-break: keep-all;
+	}
+
 	:global(.math-display) {
-		margin: 0.8rem 0 !important;
+		margin: 0.4rem 0 !important;
 		background: rgba(255,255,255,0.7);
-		padding: 0.8rem;
+		padding: 0.4rem;
 		border-radius: 8px;
 		border: 1px solid rgba(0,0,0,0.05);
 	}
@@ -332,21 +355,21 @@ const jsonLd = {
 		}
 		
 		.study-title {
-			font-size: 1.8rem;
+			font-size: 1.6rem;
 		}
 
 		:global(.card) {
-			padding: 1.2rem 1rem;
-			font-size: 1rem;
+			padding: 1rem 1.2rem;
+			font-size: 0.95rem;
 		}
 
 		:global(.card strong) {
-			font-size: 1.1rem;
+			font-size: 1.05rem;
 		}
 
 		:global(blockquote) {
-			font-size: 1.1rem;
-			padding: 0.8rem;
+			font-size: 1.05rem;
+			padding: 0.6rem;
 		}
 	}
 	.watermark {
@@ -360,9 +383,9 @@ const jsonLd = {
 	}
 	.exam-footer {
 		margin-top: auto;
-		padding-top: 3rem;
+		padding-top: 2rem;
 	}
-	.footer-line { width: 100%; height: 2px; background: #000; margin-bottom: 1rem; }
+	.footer-line { width: 100%; height: 2px; background: #000; margin-bottom: 0.8rem; }
 	.footer-row {
 		display: flex;
 		justify-content: space-between;
